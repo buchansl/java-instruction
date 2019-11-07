@@ -1,8 +1,5 @@
 package util;
-import java.util.List;
 import java.util.Scanner;
-
-import business.User;
 
 public class Console {
     
@@ -97,9 +94,5 @@ public class Console {
         }
         return d;
     }
-//	public static char[] getString(char[] user) {
-		// TODO Auto-generated method stub
-//		return user;
-//	}
    
 }

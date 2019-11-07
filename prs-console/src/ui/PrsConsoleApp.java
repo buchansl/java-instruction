@@ -1,21 +1,22 @@
-package util;
+package ui;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import business.*;
+import util.Console;
 
 public class PrsConsoleApp {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to the PRS App");
-	Console.getString(getDisplayMenu());
+	String choice = "";
 		
-		User u1 = new User(0, "bsmith", "bsmith1", "Bob", "smith", "000-000-0000", "bsmith@hottie.com", false, false);
-		User u2 = new User(0, "jsmith", "jsmith1", "Joe", "smith", "000-000-0000", "jsmith@hottie.com", true, true);
-		User u3 = new User(0, "ksmith", "ksmith1", "Kim", "smith", "000-000-0000", "ksmith@hottie.com", true, false);
-		User u4 = new User(0, "csmith", "csmith1", "Chris", "smith", "000-000-0000", "csmith@hottie.com", false, false);
-		User u5 = new User(0, "asmith", "asmith1", "Aaron", "smith", "000-000-0000", "asmith@hottie.com", false, false);
+		User u1 = new User(1, "bsmith", "bsmith1", "Bob", "smith", "000-000-0000", "bsmith@hottie.com", false, false);
+		User u2 = new User(2, "jsmith", "jsmith1", "Joe", "smith", "000-000-0000", "jsmith@hottie.com", true, true);
+		User u3 = new User(3, "ksmith", "ksmith1", "Kim", "smith", "000-000-0000", "ksmith@hottie.com", true, false);
+		User u4 = new User(4, "csmith", "csmith1", "Chris", "smith", "000-000-0000", "csmith@hottie.com", false, false);
+		User u5 = new User(5, "asmith", "asmith1", "Aaron", "smith", "000-000-0000", "asmith@hottie.com", false, false);
 
 		List<User> user = new ArrayList<User>();
 		user.add(u1);
@@ -24,34 +25,50 @@ public class PrsConsoleApp {
 		user.add(u4);
 		user.add(u5);
 
-		String choice = "";
-		while (!choice.equalsIgnoreCase("exit")) {
-			getDisplayMenu(); 
-			choice = Console.getString("\nEnter a Command: "); 
-			if (choice.equalsIgnoreCase("list") || choice.equalsIgnoreCase("1")) {
+		while (!choice.equalsIgnoreCase("choice")) {
+			//Console.getString(getDisplayMenu());
+			choice = Console.getString(getDisplayMenu()); 
+			
+			if (choice.equalsIgnoreCase("list")) {
 				listUser(user);
-			} else if (choice.equalsIgnoreCase("get") || choice.equalsIgnoreCase("2")) {
+				
+			} else if (choice.equalsIgnoreCase("get")) {
 				getUser(user); 
-			} else if (choice.equalsIgnoreCase("add") || choice.equalsIgnoreCase("3")) {
-				addUser(user); 
-			} else if (choice.equalsIgnoreCase("edit") || choice.equalsIgnoreCase("4")) {
-				editUser(user);
-			} else if (choice.equalsIgnoreCase("delete") || choice.equalsIgnoreCase("5")) {
-				deleteUser(user);
-
 				break;
-			} else {
-				System.out.println("Invalid entry! See COMMAND MENU.");
-			}
+			} else if (choice.equalsIgnoreCase("add") ) {
+				addUser(user); 
+				break;
+			} else if (choice.equalsIgnoreCase("edit")) {
+				editUser(user);
+				
+				break;
+			} else if (choice.equalsIgnoreCase("delete")) {
+				deleteUser(user);
+				
+				break;
+				
+
+			}else if (choice.equalsIgnoreCase("exit") ){
+					
+					System.out.println("\nBye!");
+					
+					break;
+				
+			}else  if (!choice.equalsIgnoreCase(" ")){
+					System.out.println("Invalid entry! See COMMAND MENU."+getDisplayMenu());
+				
+					//getDisplayMenu();
+					
+					break;
+				}
 		}
 
-		System.out.println("\nBye!");
 	}
 
 	public static String getDisplayMenu() {
-		String menu = "COMMAND MENU\r\n" + "List - List all users\r\n" + "Get - Get an user\r\n"
-				+ "Add - Add an user\r\n" + "Delete - Delete an user\r\n" + "Exit - Exit program\r\n" + "Command:\r\n";
-		return menu;
+		String choice = "COMMAND MENU\r\n" + "List - List all users\r\n" + "Get - Get an user\r\n"
+				+ "Add - Add an user\r\n" + "Delete - Delete an user\r\n" + "Exit - Exit program\r\n"+ "Command: \n";
+		return choice;
 
 	}
 
@@ -86,6 +103,7 @@ public class PrsConsoleApp {
 
 		User newUser = new User(id, userName, password, Fname, lastName, pNumber, Email, isReviewer, isAdmin);
 		users.add(newUser);
+		System.out.println(newUser);
 	}
 
 	private static void editUser(List<User> users) {
@@ -95,9 +113,9 @@ public class PrsConsoleApp {
 			if (u.getId() == number) {
 				email = Console.getString("New email: ");
 				u.setEmail(email);
+				System.out.print("User:\n " + u + " \nedited.\n ");
 			}
 		}
-		System.out.println("User: " + users + " edited.");
 
 	}
 
@@ -108,7 +126,7 @@ public class PrsConsoleApp {
 				users.remove(i);
 			}
 		}
-		System.out.println("User number " + number + " was deleted!");
+		System.out.println("User number\n " + number + " was deleted!");
 	}
 
 }
